@@ -8,7 +8,7 @@
 
 Bring your own API · PDF / DOC / TXT / photos · Continuous voice & video calls · No client-side censorship
 
-[中文](README.md) · [Android debug APK](https://github.com/sizhenhualei/hl-dsc/actions/workflows/android-debug.yml) · [Issues](https://github.com/sizhenhualei/hl-dsc/issues)
+[中文](README.md) · [Download Android APK](https://github.com/sizhenhualei/hl-dsc/releases/latest) · [Issues](https://github.com/sizhenhualei/hl-dsc/issues)
 
 </div>
 
@@ -110,6 +110,10 @@ Under **Settings → Model & API**, expand:
 - Video calls require the main chat model to accept image input; camera frames are sent with the transcribed voice turn.
 
 ## Android
+
+### Direct download
+
+Download the latest `hl-dsc-v*-debug.apk` from [Releases](https://github.com/sizhenhualei/hl-dsc/releases/latest), allow "install unknown apps", and install. The current build is debug-signed and intended for testing.
 
 ### Download from GitHub Actions
 

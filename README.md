@@ -8,7 +8,7 @@
 
 自定义 API · PDF / DOC / TXT / 图片 · 连续语音与视频通话 · 无 App 端审查
 
-[English](README.en.md) · [下载 Android APK](https://github.com/sizhenhualei/hl-dsc/actions/workflows/android-debug.yml) · [问题反馈](https://github.com/sizhenhualei/hl-dsc/issues)
+[English](README.en.md) · [下载 Android APK](https://github.com/sizhenhualei/hl-dsc/releases/latest) · [问题反馈](https://github.com/sizhenhualei/hl-dsc/issues)
 
 </div>
 
@@ -110,6 +110,10 @@ pnpm dev
 - 视频通话需要主对话模型支持图片输入；摄像头帧会随语音转写一起发送。
 
 ## Android
+
+### 直接下载
+
+从 [Releases](https://github.com/sizhenhualei/hl-dsc/releases/latest) 下载最新的 `hl-dsc-v*-debug.apk`，允许「安装未知应用」后即可安装。当前提供的是 debug 签名构建，适合直接体验与测试。
 
 ### 从 GitHub Actions 下载
 
