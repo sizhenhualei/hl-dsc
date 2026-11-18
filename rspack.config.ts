@@ -278,6 +278,21 @@ export const createConfig = ({
     rules: [
       { test: /\.module\.css$/, type: 'css/module', use: [cssLoader] },
       { test: /\.css$/, exclude: /\.module\.css$/, type: 'css', use: [cssLoader] },
+      // PDF.js 的 legacy 包仍会输出 private class methods 等较新语法。
+      // 单独下转到 ES2017，保证 Chrome 83 一类旧 WebView 也能解析。
+      {
+        test: /pdfjs-dist[\\/].*\.mjs$/,
+        exclude: /pdf\.worker\.min\.mjs$/,
+        loader: 'builtin:swc-loader',
+        options: {
+          jsc: {
+            parser: { syntax: 'ecmascript' },
+            target: 'es2017',
+            externalHelpers: true,
+          },
+        },
+        type: 'javascript/auto',
+      },
       {
         test: /\.(j|t)sx?$/,
         exclude: /[\\/]node_modules[\\/]/,

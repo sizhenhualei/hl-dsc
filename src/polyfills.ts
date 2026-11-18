@@ -57,6 +57,41 @@ if (typeof Array.prototype.toReversed !== 'function') {
   })
 }
 
+type PromiseWithResolvers = typeof Promise & {
+  withResolvers?: <T>() => {
+    promise: Promise<T>
+    resolve: (value: T | PromiseLike<T>) => void
+    reject: (reason?: unknown) => void
+  }
+}
+
+const promiseWithResolvers = Promise as PromiseWithResolvers
+if (typeof promiseWithResolvers.withResolvers !== 'function') {
+  promiseWithResolvers.withResolvers = <T>() => {
+    let resolve!: (value: T | PromiseLike<T>) => void
+    let reject!: (reason?: unknown) => void
+    const promise = new Promise<T>((res, rej) => {
+      resolve = res
+      reject = rej
+    })
+    return { promise, resolve, reject }
+  }
+}
+
+const urlWithParse = URL as typeof URL & {
+  parse?: (url: string, base?: string) => URL | null
+}
+
+if (typeof window !== 'undefined' && typeof URL !== 'undefined' && typeof urlWithParse.parse !== 'function') {
+  urlWithParse.parse = (url, base) => {
+    try {
+      return base ? new URL(url, base) : new URL(url)
+    } catch {
+      return null
+    }
+  }
+}
+
 if (typeof window !== 'undefined' && typeof MediaQueryList !== 'undefined') {
   const proto = MediaQueryList.prototype as MediaQueryList & {
     addListener?: (listener: (event: MediaQueryListEvent) => void) => void

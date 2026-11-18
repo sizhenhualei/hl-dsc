@@ -1,9 +1,17 @@
 import * as CFB from 'cfb'
 import mammoth from 'mammoth'
-import * as pdfjs from 'pdfjs-dist/legacy/build/pdf.mjs'
 import pdfWorkerUrl from 'pdfjs-dist/legacy/build/pdf.worker.min.mjs'
 
-pdfjs.GlobalWorkerOptions.workerSrc = pdfWorkerUrl
+// PDF.js 体积很大，且使用了较新的类语法。按需动态加载，避免旧版
+// Android WebView 在启动时解析 PDF.js 失败而直接白屏。
+let pdfJsPromise: Promise<typeof import('pdfjs-dist/legacy/build/pdf.mjs')> | null = null
+const loadPdfJs = () => {
+  pdfJsPromise ??= import('pdfjs-dist/legacy/build/pdf.mjs').then((module) => {
+    module.GlobalWorkerOptions.workerSrc = pdfWorkerUrl
+    return module
+  })
+  return pdfJsPromise
+}
 
 /** 单个附件最多注入模型的字符数，避免超长合同/论文直接撑爆上下文。 */
 export const MAX_DOCUMENT_CHARS = 80_000
@@ -42,6 +50,7 @@ const truncate = (text: string): { text: string; truncated: boolean } => {
 
 const extractPdfText = async (blob: Blob): Promise<string> => {
   const data = new Uint8Array(await blob.arrayBuffer())
+  const pdfjs = await loadPdfJs()
   const task = pdfjs.getDocument({
     data,
     useSystemFonts: true,
