@@ -82,6 +82,7 @@ jobs:
             if ! grep -q 'com.hldsc.app' focus.txt; then adb shell input keyevent 4 || true; sleep 3; adb shell am start -W -n com.hldsc.app/.MainActivity; sleep 10; fi
             adb shell uiautomator dump /sdcard/window.xml || true
             adb pull /sdcard/window.xml window.xml || true
+            if grep -q 'aerr_wait' window.xml; then adb shell input tap 540 1253 || true; sleep 8; fi
             adb exec-out screencap -p > smoke.png
             adb logcat -d -v threadtime > logcat.txt
             adb shell dumpsys activity activities > activities.txt
