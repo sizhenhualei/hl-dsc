@@ -1,0 +1,11 @@
+{
+  "appId": "com.hldsc.app",
+  "appName": "hl-dsc",
+  "webDir": "dist",
+  "server": {
+    "androidScheme": "https"
+  },
+  "android": {
+    "allowMixedContent": true
+  }
+}

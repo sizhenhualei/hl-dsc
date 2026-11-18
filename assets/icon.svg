@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <defs>
+    <linearGradient id="bg" x1="120" y1="120" x2="900" y2="940" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0b1f6b"/>
+      <stop offset="0.45" stop-color="#1d4ed8"/>
+      <stop offset="1" stop-color="#0787ff"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0" cy="0" r="1" gradientTransform="translate(760 240) rotate(135) scale(520)">
+      <stop offset="0" stop-color="#38bdf8" stop-opacity="0.85"/>
+      <stop offset="1" stop-color="#38bdf8" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="ink" x1="380" y1="350" x2="650" y2="610" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0b2fa8"/>
+      <stop offset="1" stop-color="#0b8cff"/>
+    </linearGradient>
+    <filter id="bubbleShadow" x="-30%" y="-30%" width="160%" height="170%">
+      <feDropShadow dx="0" dy="26" stdDeviation="30" flood-color="#02144f" flood-opacity="0.32"/>
+    </filter>
+    <clipPath id="squircle">
+      <rect x="24" y="24" width="976" height="976" rx="224"/>
+    </clipPath>
+  </defs>
+
+  <g clip-path="url(#squircle)">
+    <rect x="24" y="24" width="976" height="976" fill="url(#bg)"/>
+    <rect x="24" y="24" width="976" height="976" fill="url(#glow)"/>
+    <path d="M-40 780C190 560 270 470 520 470s430-110 560-270v560c-170 150-360 230-600 230S110 940-40 860Z" fill="#ffffff" opacity="0.055"/>
+    <path d="M-20 250C210 120 350 100 560 140s330 40 500-40" fill="none" stroke="#7dd3fc" stroke-width="3" opacity="0.22"/>
+  </g>
+
+  <g filter="url(#bubbleShadow)">
+    <path d="M312 208h408c90 0 164 74 164 164v214c0 90-74 164-164 164H442L252 818l34-186c-68-28-112-94-112-170V372c0-90 74-164 164-164Z" fill="#ffffff"/>
+  </g>
+
+  <path d="M382 342v276M382 470c0-52 82-70 136-38 28 17 42 46 42 82v104" fill="none" stroke="url(#ink)" stroke-width="58" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M650 342v276" fill="none" stroke="url(#ink)" stroke-width="58" stroke-linecap="round"/>
+
+  <circle cx="216" cy="300" r="11" fill="#67e8f9"/>
+  <circle cx="834" cy="392" r="15" fill="#22d3ee"/>
+  <circle cx="792" cy="626" r="9" fill="#67e8f9"/>
+</svg>
