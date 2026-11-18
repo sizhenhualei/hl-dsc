@@ -4,9 +4,9 @@
 
 # hl-dsc
 
-**像 DeepSeek App 一样简洁的手机 AI 聊天客户端**
+**像 DeepSeek App 一样简洁，但有自己的清爽设计语言**
 
-自定义 API · PDF / DOC / TXT / 图片 · 连续语音与视频通话 · 无 App 端审查
+自定义 API · PDF / DOC / TXT / 图片 · 全屏语音与视频通话 · 无 App 端审查
 
 [English](README.en.md) · [下载 Android APK](https://github.com/sizhenhualei/hl-dsc/releases/latest) · [问题反馈](https://github.com/sizhenhualei/hl-dsc/issues)
 
@@ -16,13 +16,13 @@
 
 ## 为什么是 hl-dsc
 
-hl-dsc 是一个移动端优先的轻量 AI 聊天客户端：界面参考 DeepSeek App 的留白、圆角输入框与克制的图标体系，但不是官方产品。它把「模型接口」交还给你：填入任意 OpenAI 兼容地址即可聊天，也支持 DeepSeek 原生协议、OpenAI Responses 协议以及本地模型服务。
+hl-dsc 是一个移动端优先的轻量 AI 聊天客户端：以手机版 DeepSeek 的留白和克制为参考，但不是 DeepChat 的复刻。原创小团子 mascot、三张快捷卡片和独立全屏通话界面，构成自己的清爽设计语言。它把「模型接口」交还给你：填入任意 OpenAI 兼容地址即可聊天，也支持 DeepSeek 原生协议、OpenAI Responses 协议以及本地模型服务。
 
 没有账号体系，没有 App 内置的内容审查，没有强制登录。聊天记录、附件和 API Key 都保存在你自己的设备上。
 
 ## 截图
 
-| 首页 | 对话与附件 | 设置 | 连续语音通话 |
+| 首页 | 对话与附件 | 设置 | 全屏语音通话 |
 | :---: | :---: | :---: | :---: |
 | <img src="docs/screenshots/home.png" width="190" /> | <img src="docs/screenshots/chat.png" width="190" /> | <img src="docs/screenshots/settings.png" width="190" /> | <img src="docs/screenshots/voice-call.png" width="190" /> |
 
@@ -47,12 +47,14 @@ hl-dsc 是一个移动端优先的轻量 AI 聊天客户端：界面参考 DeepS
 - 单文件最多提取 **80,000 字**，超出部分会明确标注截断；单条消息最多 50 个附件，单文件最大 64 MB。
 - 自定义 API 模式下，图片会压缩到最长边 **1600 px** 后以 data URL 发送，避免超大请求。
 - 也可以为视觉/OCR 单独配置第三方端点；扫描版 PDF 可通过 OCR 渠道识别。
+- 图片理解需要主模型或「图片理解」渠道支持视觉。仅使用 DeepSeek 原生接口时，聊天 API 不能直接读图；请切换到支持视觉的 OpenAI 兼容模型（如 `gpt-4o-mini`、`qwen-vl-max`），或在设置底部为「图片理解」配置独立视觉模型。若图片理解渠道失败，hl-dsc 会自动回退为把原图交给主模型。
 
 ### 连续语音与视频通话
 
-- 全屏「连续语音通话」界面：自动 VAD 断句、自动发送、流式回答、可随时打断。
-- 支持麦克风静音、挂断、通话字幕。
-- 支持打开摄像头、前后摄像头切换；摄像头画面会作为本轮图片附件发送给多模态模型。
+- 独立全屏「连续语音通话 / 视频通话」界面，不是悬浮窗：自动 VAD 断句、自动发送、流式回答、可随时打断。
+- 支持麦克风静音、挂断、通话字幕；视频模式下摄像头画面全屏铺满，可前后切换。
+- 摄像头画面会作为本轮图片附件发送给多模态模型。
+- Android 通话时自动隐藏状态栏与导航栏，并保持屏幕常亮。
 - ASR 兼容 `POST {base}/audio/transcriptions`，TTS 兼容 `POST {base}/audio/speech`，可在设置中分别配置独立的地址、Key、模型与音色。
 - 使用 DeepSeek 原生协议时，语音能力默认跟随主服务。
 

@@ -294,6 +294,20 @@ export const createConfig = ({
         type: 'javascript/auto',
       },
       {
+        test: /\.[cm]?js$/,
+        include: /[\\/]node_modules[\\/]/,
+        exclude: /pdf\.worker\.min\.mjs$/,
+        loader: 'builtin:swc-loader',
+        options: {
+          jsc: {
+            parser: { syntax: 'ecmascript' },
+            target: 'es2017',
+            externalHelpers: true,
+          },
+        },
+        type: 'javascript/auto',
+      },
+      {
         test: /\.(j|t)sx?$/,
         exclude: /[\\/]node_modules[\\/]/,
         loader: 'builtin:swc-loader',

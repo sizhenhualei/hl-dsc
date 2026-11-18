@@ -4,9 +4,9 @@
 
 # hl-dsc
 
-**A lightweight mobile AI chat client with a DeepSeek-like interface**
+**A lightweight mobile AI chat client with a DeepSeek-like calm, in its own visual language**
 
-Bring your own API · PDF / DOC / TXT / photos · Continuous voice & video calls · No client-side censorship
+Bring your own API · PDF / DOC / TXT / photos · Full-screen voice & video calls · No client-side censorship
 
 [中文](README.md) · [Download Android APK](https://github.com/sizhenhualei/hl-dsc/releases/latest) · [Issues](https://github.com/sizhenhualei/hl-dsc/issues)
 
@@ -16,13 +16,13 @@ Bring your own API · PDF / DOC / TXT / photos · Continuous voice & video calls
 
 ## Why hl-dsc
 
-hl-dsc is a mobile-first AI chat client. The interface follows the calm, spacious feel of the DeepSeek app — generous whitespace, a rounded input pill, restrained icons — but this is not an official DeepSeek product. It gives the model endpoint back to you: any OpenAI-compatible API works, and DeepSeek native, OpenAI Responses, and local model servers are supported too.
+hl-dsc is a mobile-first AI chat client. It takes the calm whitespace and restraint of the mobile DeepSeek app as a reference, but it is not a DeepChat clone: the original round mascot, three quick-action cards and a dedicated full-screen call surface give it a clean design language of its own. It gives the model endpoint back to you: any OpenAI-compatible API works, and DeepSeek native, OpenAI Responses, and local model servers are supported too.
 
 There is no account system, no built-in content moderation, and no forced sign-in. Chats, attachments and API keys stay on your device.
 
 ## Screenshots
 
-| Home | Chat & attachments | Settings | Voice call |
+| Home | Chat & attachments | Settings | Full-screen voice call |
 | :---: | :---: | :---: | :---: |
 | <img src="docs/screenshots/home.png" width="190" /> | <img src="docs/screenshots/chat.png" width="190" /> | <img src="docs/screenshots/settings.png" width="190" /> | <img src="docs/screenshots/voice-call.png" width="190" /> |
 
@@ -47,12 +47,14 @@ There is no account system, no built-in content moderation, and no forced sign-i
 - Up to **80,000 characters per file** (with an explicit truncation marker), 50 attachments per message, 64 MB per file.
 - For custom APIs, photos are compressed to a **1600 px** longest edge and sent as data URLs.
 - Optional third-party vision/OCR channels are supported; scanned PDFs can be routed through OCR.
+- Image understanding requires either a vision-capable main model or a configured **Image Understanding** channel. The DeepSeek native chat API cannot read images directly; use a vision-capable OpenAI-compatible model (for example `gpt-4o-mini` or `qwen-vl-max`) or configure a separate vision model under Settings. If the vision channel fails, hl-dsc falls back to sending the original image to the main model.
 
 ### Continuous voice & video calls
 
-- Full-screen continuous voice call with automatic VAD turn-taking, streaming replies, and barge-in.
-- Mute, hang up, and live captions.
-- Camera on/off with front/back switching; a camera frame is attached to that turn for multimodal models.
+- A dedicated full-screen continuous voice/video call surface, not a floating modal: automatic VAD turn-taking, streaming replies, and barge-in.
+- Mute, hang up, and live captions; in video mode the camera fills the screen and can switch between front and back.
+- The camera frame is attached to that turn for multimodal models.
+- On Android, status and navigation bars hide during a call and the screen stays awake.
 - ASR uses `POST {base}/audio/transcriptions`, TTS uses `POST {base}/audio/speech`; each channel can have its own base URL, key, model and voice.
 - With DeepSeek native mode, speech capabilities follow the main service.
 

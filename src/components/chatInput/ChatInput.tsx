@@ -51,7 +51,7 @@ import { useAnchoredPosition, useDismiss } from '../base/anchored.js'
 import { ensureApiKey, openSettings } from '../settings/settingsDialogState.js'
 import { DragMask, useFileDrop } from './DragMask.js'
 import { showToast } from '../base/toastState.js'
-import { ACCEPT, useUploads } from '../../services/attachments.js'
+import { ACCEPT, isImage, resolveMimeType, useUploads } from '../../services/attachments.js'
 import { DraftAttachments } from './DraftAttachments.js'
 import { ImageSizePicker } from '../messages/ImageSizePicker.js'
 import { useVoiceInput } from './useVoiceInput.js'
@@ -204,6 +204,17 @@ const Input = ({ sessionId }: { sessionId: string | null }) => {
     const error = addDraftFiles(sessionId, files, useSettings.getState().apiKey ?? '')
     if (error) {
       showToast(error)
+      return
+    }
+    const state = useSettings.getState()
+    const model = state.model.trim().toLowerCase()
+    const likelyTextOnly =
+      !state.imageGen &&
+      state.visionChannel.mode !== 'custom' &&
+      (state.chatProtocol === 'deepseek' ||
+        /^deepseek-(chat|reasoner|coder)(?:$|[-:])/.test(model))
+    if (likelyTextOnly && files.some((file) => isImage(resolveMimeType(file)))) {
+      showToast({ key: 'visionModelUnsupportedHint' })
     }
   }
   const retryFile = useCallback(

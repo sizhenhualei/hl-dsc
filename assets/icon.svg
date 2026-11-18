@@ -1,20 +1,16 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
   <defs>
-    <linearGradient id="bg" x1="120" y1="120" x2="900" y2="940" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#0b1f6b"/>
-      <stop offset="0.45" stop-color="#1d4ed8"/>
-      <stop offset="1" stop-color="#0787ff"/>
+    <linearGradient id="bg" x1="140" y1="100" x2="880" y2="940" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#1e5bff"/>
+      <stop offset="0.55" stop-color="#1047d8"/>
+      <stop offset="1" stop-color="#09288f"/>
     </linearGradient>
-    <radialGradient id="glow" cx="0" cy="0" r="1" gradientTransform="translate(760 240) rotate(135) scale(520)">
-      <stop offset="0" stop-color="#38bdf8" stop-opacity="0.85"/>
-      <stop offset="1" stop-color="#38bdf8" stop-opacity="0"/>
+    <radialGradient id="halo" cx="0" cy="0" r="1" gradientTransform="translate(560 430) scale(380)">
+      <stop offset="0" stop-color="#8db7ff" stop-opacity="0.42"/>
+      <stop offset="1" stop-color="#8db7ff" stop-opacity="0"/>
     </radialGradient>
-    <linearGradient id="ink" x1="380" y1="350" x2="650" y2="610" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#0b2fa8"/>
-      <stop offset="1" stop-color="#0b8cff"/>
-    </linearGradient>
-    <filter id="bubbleShadow" x="-30%" y="-30%" width="160%" height="170%">
-      <feDropShadow dx="0" dy="26" stdDeviation="30" flood-color="#02144f" flood-opacity="0.32"/>
+    <filter id="softShadow" x="-30%" y="-30%" width="160%" height="180%">
+      <feDropShadow dx="0" dy="30" stdDeviation="34" flood-color="#03114f" flood-opacity="0.35"/>
     </filter>
     <clipPath id="squircle">
       <rect x="24" y="24" width="976" height="976" rx="224"/>
@@ -23,19 +19,30 @@
 
   <g clip-path="url(#squircle)">
     <rect x="24" y="24" width="976" height="976" fill="url(#bg)"/>
-    <rect x="24" y="24" width="976" height="976" fill="url(#glow)"/>
-    <path d="M-40 780C190 560 270 470 520 470s430-110 560-270v560c-170 150-360 230-600 230S110 940-40 860Z" fill="#ffffff" opacity="0.055"/>
-    <path d="M-20 250C210 120 350 100 560 140s330 40 500-40" fill="none" stroke="#7dd3fc" stroke-width="3" opacity="0.22"/>
+    <rect x="24" y="24" width="976" height="976" fill="url(#halo)"/>
+    <circle cx="822" cy="190" r="170" fill="#4d86ff" opacity="0.2"/>
+    <circle cx="168" cy="868" r="210" fill="#061d68" opacity="0.35"/>
   </g>
 
-  <g filter="url(#bubbleShadow)">
-    <path d="M312 208h408c90 0 164 74 164 164v214c0 90-74 164-164 164H442L252 818l34-186c-68-28-112-94-112-170V372c0-90 74-164 164-164Z" fill="#ffffff"/>
+  <g filter="url(#softShadow)">
+    <path
+      d="M512 202c183 0 318 130 318 296 0 166-135 296-318 296-49 0-96-7-139-21l-139 78c-17 10-37-6-32-25l35-138C181 630 194 560 194 498c0-166 135-296 318-296Z"
+      fill="#ffffff"
+    />
   </g>
 
-  <path d="M382 342v276M382 470c0-52 82-70 136-38 28 17 42 46 42 82v104" fill="none" stroke="url(#ink)" stroke-width="58" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M650 342v276" fill="none" stroke="url(#ink)" stroke-width="58" stroke-linecap="round"/>
+  <ellipse cx="430" cy="494" rx="21" ry="27" fill="#153b99"/>
+  <ellipse cx="594" cy="494" rx="21" ry="27" fill="#153b99"/>
+  <circle cx="423" cy="484" r="6" fill="#ffffff"/>
+  <circle cx="587" cy="484" r="6" fill="#ffffff"/>
 
-  <circle cx="216" cy="300" r="11" fill="#67e8f9"/>
-  <circle cx="834" cy="392" r="15" fill="#22d3ee"/>
-  <circle cx="792" cy="626" r="9" fill="#67e8f9"/>
+  <path d="M474 560q38 34 76 0" fill="none" stroke="#153b99" stroke-width="16" stroke-linecap="round"/>
+  <ellipse cx="354" cy="557" rx="33" ry="17" fill="#b9d3ff" opacity="0.8"/>
+  <ellipse cx="670" cy="557" rx="33" ry="17" fill="#b9d3ff" opacity="0.8"/>
+
+  <path d="M512 222c-13-25 4-52 34-57-11 20-7 37 9 49" fill="#2e66ff" opacity="0.9"/>
+
+  <path d="M790 300l10 24 24 10-24 10-10 24-10-24-24-10 24-10Z" fill="#7de3ff"/>
+  <circle cx="238" cy="334" r="12" fill="#8de9ff" opacity="0.95"/>
+  <circle cx="814" cy="452" r="7" fill="#8de9ff" opacity="0.8"/>
 </svg>

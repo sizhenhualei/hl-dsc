@@ -1288,18 +1288,35 @@ const prepareInlineAttachments = async (
         const visionKey = settings.visionChannel.apiKey.trim() || settings.apiKey || ''
         const visionOrigin = settings.visionChannel.baseUrl.trim() || getApiOrigin()
         const visionModel = settings.visionChannel.model.trim() || settings.model
-        const desc = await recognizeWithOpenAIVision({
-          baseUrl: visionOrigin,
-          apiKey: visionKey,
-          model: visionModel,
-          prompt: `请详细识别并描述这张图片（${file.name}）中的关键内容、文字与细节，供后续对话回答使用。`,
-          dataUrl,
-          signal,
-        })
+        let desc = ''
+        try {
+          desc = await recognizeWithOpenAIVision({
+            baseUrl: visionOrigin,
+            apiKey: visionKey,
+            model: visionModel,
+            prompt: `请详细识别并描述这张图片（${file.name}）中的关键内容、文字与细节，供后续对话回答使用。`,
+            dataUrl,
+            signal,
+            customHeadersRaw: settings.customHeaders,
+          })
+        } catch (error) {
+          if (signal.aborted) {
+            throw error
+          }
+          desc = ''
+        }
         if (desc) {
           extraNotes.push(`[图片识别（${file.name}）：${desc}]`)
+          strippedFileIds.add(file.id)
+        } else if (settings.chatProtocol !== 'deepseek') {
+          // 识别渠道偶发失败时不要丢掉图片：仍把原图交给主模型，
+          // 只要主模型本身支持视觉，图片理解就不会因为辅助渠道故障而失效。
+          inlineImages.set(key, dataUrl)
+          extraNotes.push(`[图片理解渠道未返回描述，已直接附带原图：${file.name}]`)
+        } else {
+          extraNotes.push(`[图片理解失败：${file.name}。请检查“图片理解”渠道的接口、模型与 Key。]`)
+          strippedFileIds.add(file.id)
         }
-        strippedFileIds.add(file.id)
       } else if (settings.chatProtocol !== 'deepseek') {
         inlineImages.set(key, dataUrl)
       }
@@ -1335,6 +1352,7 @@ const prepareInlineAttachments = async (
           prompt: `请完整提取并识别文件「${file.name}」中的所有文字内容。`,
           dataUrl,
           signal,
+          customHeadersRaw: settings.customHeaders,
         })
         if (text) {
           extraNotes.push(`[文字识别（${file.name}）：${text}]`)
@@ -1781,24 +1799,6 @@ const streamReply = async (sessionId: string, initial: AssistantMessage, request
         reply = { ...reply, ...(latestReminder ? { latestReminder } : {}) }
         updateReply(sessionId, reply)
         persist(sessionId)
-        const builtRequest = toRequestMessagesWithSources(
-          prepared.history,
-          inlinePrepared.question,
-          prepared.prefix,
-          initial.thinking ?? false,
-          latestReminder,
-          true,
-          settings.chatProtocol !== 'deepseek',
-          {
-            skipFileIds: skippedHistoryFileIds,
-            skipRoundUserIds,
-            stripReadLinkAssistantIds,
-            dropLeadingRounds,
-          }
-        )
-        const messages = builtRequest.messages
-        builtSourceEntries = builtRequest.sourceEntries
-        builtRoundCount = builtRequest.roundCount
         const baseSystem = settings.systemPrompt.trim()
         const voiceSystem = request.voiceCall ? settings.voiceSystemPrompt.trim() : ''
         const visionHint =
@@ -1826,16 +1826,44 @@ const streamReply = async (sessionId: string, initial: AssistantMessage, request
           reply = settleReply(reply, 'stopped', Date.now())
           break
         }
-        const system = [
-          baseSystem,
-          voiceSystem,
-          visionHint,
-          imageGenHint,
-          savedMemoryContext,
-          memoryContext,
+        // system 与历史轮次保持逐字节稳定，才能命中服务端前缀缓存。
+        // 每轮会变化的记忆、实时画面提示放到本轮用户消息里，只让最后一条消息不可缓存。
+        const turnContext = [
+          visionHint ? `<live_vision_hint>\n${visionHint}\n</live_vision_hint>` : '',
+          savedMemoryContext
+            ? `<long_term_memory>\n${savedMemoryContext}\n</long_term_memory>`
+            : '',
+          memoryContext ? `<cross_chat_memory>\n${memoryContext}\n</cross_chat_memory>` : '',
         ]
           .filter(Boolean)
           .join('\n\n')
+        const outboundQuestion = turnContext
+          ? {
+              ...inlinePrepared.question,
+              content: inlinePrepared.question.content
+                ? `${turnContext}\n\n${inlinePrepared.question.content}`
+                : turnContext,
+            }
+          : inlinePrepared.question
+        const builtRequest = toRequestMessagesWithSources(
+          prepared.history,
+          outboundQuestion,
+          prepared.prefix,
+          initial.thinking ?? false,
+          latestReminder,
+          true,
+          settings.chatProtocol !== 'deepseek',
+          {
+            skipFileIds: skippedHistoryFileIds,
+            skipRoundUserIds,
+            stripReadLinkAssistantIds,
+            dropLeadingRounds,
+          }
+        )
+        const messages = builtRequest.messages
+        builtSourceEntries = builtRequest.sourceEntries
+        builtRoundCount = builtRequest.roundCount
+        const system = [baseSystem, voiceSystem, imageGenHint].filter(Boolean).join('\n\n')
         const tools = serverTools(initial.search ?? false, settings.readUrl)
         const requestBody: CreateMessageRequest = {
           model: initial.model ?? (settings.model.trim() || MODEL),

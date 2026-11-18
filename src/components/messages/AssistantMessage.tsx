@@ -78,13 +78,14 @@ export const AssistantMessage = memo(function AssistantMessage({
     block.type === 'image' ? [{ block, index }] : []
   )
   const copyText = responseText || notice?.text
-  const inputTokens = message.usage
-    ? message.usage.input_tokens +
-      message.usage.cache_creation_input_tokens +
-      message.usage.cache_read_input_tokens
+  /** 命中服务端前缀缓存的输入 token */
+  const cachedInputTokens = message.usage?.cache_read_input_tokens ?? 0
+  /** 未命中缓存的输入 token：全新输入 + 首次写入缓存 */
+  const uncachedInputTokens = message.usage
+    ? message.usage.input_tokens + message.usage.cache_creation_input_tokens
     : 0
   const outputTokens = message.usage?.output_tokens ?? 0
-  const totalTokens = inputTokens + outputTokens
+  const totalTokens = cachedInputTokens + uncachedInputTokens + outputTokens
   const waiting =
     streaming &&
     view.steps.length === 0 &&
@@ -332,7 +333,8 @@ export const AssistantMessage = memo(function AssistantMessage({
                 <div className={styles.tokenUsage}>
                   {t('tokenUsageSummary', {
                     total: totalTokens,
-                    input: inputTokens,
+                    cached: cachedInputTokens,
+                    miss: uncachedInputTokens,
                     output: outputTokens,
                   })}
                 </div>

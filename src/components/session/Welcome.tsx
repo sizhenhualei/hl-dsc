@@ -55,6 +55,7 @@ export const Welcome = () => {
           <div className={styles.brandRow}>
             <img className={styles.mark} src="./assets/icon.svg" alt="" />
             <span className={styles.brandName}>hl-dsc</span>
+            <span className={styles.brandDot} aria-hidden="true" />
           </div>
           <h1 className={styles.greeting}>{t('welcomeMessageChat250808')}</h1>
           <p className={styles.tagline}>{t('welcomeTagline')}</p>
