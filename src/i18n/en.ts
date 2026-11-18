@@ -2,6 +2,15 @@ import type { zh } from './zh.js'
 
 export const en = {
   welcomeMessageChat250808: 'How can I help you?',
+  welcomeTagline: 'Your API. Your conversation. Documents, photos and voice, all in one quiet place.',
+  starterDocument: 'Read a document',
+  starterDocumentHint: 'PDF · DOCX · TXT',
+  starterDocumentPrompt: 'Please read this document and summarize the key points.',
+  starterPhoto: 'Understand a photo',
+  starterPhotoHint: 'Screenshots · handwriting · charts',
+  starterPhotoPrompt: 'Please describe this photo and point out anything worth noting.',
+  starterVoice: 'Start talking',
+  starterVoiceHint: 'Continuous voice · camera optional',
   contentCaveat: 'AI-generated, for reference only',
   expandSiderbarButton: 'Open sidebar',
   collapseSiderbarButton: 'Close sidebar',

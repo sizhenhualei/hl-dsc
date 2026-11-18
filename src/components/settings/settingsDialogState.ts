@@ -25,6 +25,9 @@ export const ensureApiKey = () => true
 
 /** 首次打开时引导配置接口；只提示一次，关闭后不再拦截聊天。 */
 export const promptInitialSetup = () => {
+  if (new URLSearchParams(window.location.search).has('preview')) {
+    return
+  }
   try {
     if (localStorage.getItem(SETUP_SEEN_KEY) === '1') {
       return

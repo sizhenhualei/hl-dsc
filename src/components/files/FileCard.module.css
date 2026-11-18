@@ -4,10 +4,10 @@
   align-items: center;
   flex-shrink: 0;
   box-sizing: border-box;
-  width: 240px;
-  min-height: 64px;
-  padding: 0 12px 0 14px;
-  border-radius: 16px;
+  width: 200px;
+  min-height: 56px;
+  padding: 0 10px 0 12px;
+  border-radius: 14px;
   border: 1px solid var(--dsw-alias-border-l2);
   background-color: var(--dsw-specific-input-major);
   cursor: default;
@@ -43,9 +43,9 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  width: 28px;
-  height: 28px;
-  margin-right: 10px;
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
   color: var(--dsw-alias-label-tertiary);
 }
 
@@ -80,9 +80,9 @@
 
 .caption {
   overflow: hidden;
-  font-size: 14px;
-  line-height: 22px;
-  font-weight: 400;
+  font-size: 13px;
+  line-height: 19px;
+  font-weight: 500;
   white-space: nowrap;
   text-overflow: ellipsis;
   color: var(--dsw-alias-label-primary);
@@ -91,10 +91,17 @@
 .subCaption {
   overflow: hidden;
   font-size: 12px;
-  line-height: 18px;
+  line-height: 17px;
   white-space: nowrap;
   text-overflow: ellipsis;
   color: var(--dsw-alias-label-tertiary);
+}
+
+@media (max-width: 439px) {
+  .card {
+    width: 172px;
+    padding: 0 8px 0 10px;
+  }
 }
 
 .remove {

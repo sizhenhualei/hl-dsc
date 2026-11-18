@@ -17,3 +17,4 @@ tmp/
 *.apk
 .idea/
 android/local.properties
+.taste-skill/

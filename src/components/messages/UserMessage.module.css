@@ -18,13 +18,13 @@
   flex-wrap: wrap;
   align-items: flex-end;
   justify-content: flex-end;
-  gap: 10px;
+  gap: 8px;
   max-width: 100%;
   margin-bottom: 8px;
 }
 
 .filesWithDocuments {
-  --message-file-image-size: 64px;
+  --message-file-image-size: 56px;
 }
 
 .bubble {

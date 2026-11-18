@@ -154,6 +154,20 @@ const Input = ({ sessionId }: { sessionId: string | null }) => {
     }
   }
 
+  // 欢迎页的快捷入口通过事件打开原生文件选择器；必须保持在用户点击的同步链路里。
+  useEffect(() => {
+    const handlePick = (event: Event) => {
+      const kind = (event as CustomEvent<string>).detail
+      if (kind === 'file') {
+        fileInputRef.current?.click()
+      } else if (kind === 'photo') {
+        galleryInputRef.current?.click()
+      }
+    }
+    window.addEventListener('hl-dsc:pick', handlePick)
+    return () => window.removeEventListener('hl-dsc:pick', handlePick)
+  }, [])
+
   useLayoutEffect(() => {
     const toggles = togglesRef.current
     if (!toggles) {
