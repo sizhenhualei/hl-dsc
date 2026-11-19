@@ -50,6 +50,9 @@ export const VoiceCallOverlay = () => {
     setVoiceCallVideoElement(video)
     if (video) {
       video.srcObject = call.videoStream
+      if (call.videoStream) {
+        void video.play().catch(() => {})
+      }
     }
     return () => {
       if (video) {

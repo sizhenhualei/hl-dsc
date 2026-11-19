@@ -107,7 +107,12 @@ const describeCameraError = (error: unknown): TranslationMessage => {
   return { key: 'voiceCallCameraFailed' }
 }
 
-const MAX_VIDEO_FRAME_EDGE = 768
+const MAX_VIDEO_FRAME_EDGE = 1280
+const HD_VIDEO_CONSTRAINTS: MediaTrackConstraints = {
+  width: { ideal: 1920, min: 1280 },
+  height: { ideal: 1080, min: 720 },
+  frameRate: { ideal: 30, max: 30 },
+}
 let previewVideoEl: HTMLVideoElement | null = null
 
 export const setVoiceCallVideoElement = (element: HTMLVideoElement | null) => {
@@ -145,9 +150,11 @@ const captureVideoFrame = async (): Promise<File | null> => {
   if (!ctx) {
     return null
   }
+  ctx.imageSmoothingEnabled = true
+  ctx.imageSmoothingQuality = 'high'
   ctx.drawImage(video, 0, 0, width, height)
   const blob = await new Promise<Blob | null>((resolve) =>
-    canvas.toBlob((result) => resolve(result), 'image/jpeg', 0.78)
+    canvas.toBlob((result) => resolve(result), 'image/jpeg', 0.86)
   )
   if (!blob) {
     return null
@@ -775,20 +782,32 @@ const openCameraStream = async (facingMode: 'user' | 'environment') => {
     let stream: MediaStream
     try {
       stream = await navigator.mediaDevices.getUserMedia({
-        video: {
-          facingMode: { exact: facingMode },
-          width: { ideal: 1280 },
-          height: { ideal: 720 },
-        },
+        video: { facingMode: { exact: facingMode }, ...HD_VIDEO_CONSTRAINTS },
       })
     } catch {
       try {
         stream = await navigator.mediaDevices.getUserMedia({
-          video: { facingMode, width: { ideal: 1280 }, height: { ideal: 720 } },
+          video: { facingMode, ...HD_VIDEO_CONSTRAINTS },
         })
       } catch {
-        // 桌面端或单摄设备可能不支持 facingMode 约束，回退为默认摄像头
-        stream = await navigator.mediaDevices.getUserMedia({ video: true })
+        // 桌面端或单摄设备可能不支持 facingMode 约束，回退为默认摄像头，
+        // 但仍尽量请求高清，避免一上来就落到 640×480。
+        stream = await navigator.mediaDevices.getUserMedia({
+          video: {
+            width: { ideal: 1920 },
+            height: { ideal: 1080 },
+            frameRate: { ideal: 30 },
+          },
+        })
+      }
+    }
+    // 部分 WebView 会先给一个低分辨率流，这里再请求一次高清约束。
+    const videoTrack = stream.getVideoTracks()[0]
+    if (videoTrack) {
+      try {
+        await videoTrack.applyConstraints(HD_VIDEO_CONSTRAINTS)
+      } catch {
+        // 设备只支持固定分辨率时保留当前最优流。
       }
     }
     if (activeCall !== call || callEpoch !== epoch) {

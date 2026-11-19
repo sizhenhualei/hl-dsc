@@ -305,17 +305,36 @@ const initialThinkingEffort = (): ThinkingEffort => {
   return value === 'low' || value === 'high' || value === 'max' || value === 'xhigh' ? value : 'low'
 }
 
+const isOfficialDeepSeekOrigin = (origin: string): boolean => {
+  if (!origin.trim()) {
+    return true
+  }
+  try {
+    const host = new URL(origin).hostname.toLowerCase()
+    return host === 'api.deepseek.com' || host.endsWith('.deepseek.com')
+  } catch {
+    return false
+  }
+}
+
+const initialApiOrigin = read(KEYS.apiOrigin) ?? ''
+setRuntimeApiOrigin(initialApiOrigin)
+
 const initialChatProtocol = (): ChatProtocol => {
   const saved = read(KEYS.chatProtocol)
   if (saved === 'deepseek' || saved === 'openai' || saved === 'responses' || saved === 'local') {
+    // 旧版本曾默认使用 DeepSeek 原生协议。用户后来填写了自定义 API 时，
+    // 继续使用原生协议会把附件传去 DeepSeek Files API，导致「上传失败」。
+    // 这里做一次无感迁移：自定义 API 地址一律按 OpenAI 兼容协议处理。
+    if (saved === 'deepseek' && initialApiOrigin && !isOfficialDeepSeekOrigin(initialApiOrigin)) {
+      write(KEYS.chatProtocol, 'openai')
+      return 'openai'
+    }
     return saved
   }
   // 默认使用 OpenAI 兼容协议，用户填写任意自定义 API 地址即可直接对话。
   return 'openai'
 }
-
-const initialApiOrigin = read(KEYS.apiOrigin) ?? ''
-setRuntimeApiOrigin(initialApiOrigin)
 
 export const useSettings = create<Settings>(() => ({
   apiKey: read(KEYS.apiKey),
@@ -488,6 +507,15 @@ export const setApiOrigin = (apiOrigin: string) => {
   write(KEYS.apiOrigin, apiOrigin ? apiOrigin : null)
   setRuntimeApiOrigin(apiOrigin)
   useSettings.setState({ apiOrigin })
+  // 自定义 API 默认是 OpenAI 兼容接口；继续用 DeepSeek 原生协议会导致
+  // 图片/文件被送到 DeepSeek Files API，出现“上传失败”。
+  if (
+    useSettings.getState().chatProtocol === 'deepseek' &&
+    apiOrigin &&
+    !isOfficialDeepSeekOrigin(apiOrigin)
+  ) {
+    setChatProtocol('openai')
+  }
 }
 
 export const setCustomHeaders = (customHeaders: string) => {
