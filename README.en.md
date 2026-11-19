@@ -8,7 +8,7 @@
 
 Bring your own API · PDF / DOC / TXT / photos · Full-screen voice & video calls · No client-side content filtering
 
-[中文](README.md) · [Download Android APK](https://github.com/sizhenhualei/hl-dsc/releases/latest) · [Issues](https://github.com/sizhenhualei/hl-dsc/issues)
+[中文](README.md) · [Promo video](https://www.bilibili.com/video/BV1Qysb6wEJj) · [Download Android APK](https://github.com/sizhenhualei/hl-dsc/releases/latest) · [Issues](https://github.com/sizhenhualei/hl-dsc/issues)
 
 </div>
 

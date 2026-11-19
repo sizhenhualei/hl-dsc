@@ -8,7 +8,7 @@
 
 自定义 API · PDF / DOC / TXT / 图片 · 全屏语音与视频通话 · 客户端不做内容过滤
 
-[English](README.en.md) · [下载 Android APK](https://github.com/sizhenhualei/hl-dsc/releases/latest) · [问题反馈](https://github.com/sizhenhualei/hl-dsc/issues)
+[English](README.en.md) · [宣传片](https://www.bilibili.com/video/BV1Qysb6wEJj) · [下载 Android APK](https://github.com/sizhenhualei/hl-dsc/releases/latest) · [问题反馈](https://github.com/sizhenhualei/hl-dsc/issues)
 
 </div>
 
