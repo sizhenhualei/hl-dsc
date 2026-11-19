@@ -1,6 +1,6 @@
 {
   "name": "hl-dsc",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "description": "hl-dsc — 轻量手机 AI 聊天客户端，支持自定义 OpenAI 兼容 API、文档与图片理解、语音与视频通话。",
   "license": "MIT",
   "private": true,

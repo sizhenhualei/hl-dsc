@@ -7,6 +7,10 @@ import { ensureKatex } from './services/markdown/katex.js'
 import './app/theme.css'
 import './app/global.css'
 
+if (new URLSearchParams(window.location.search).has('preview')) {
+  document.documentElement.classList.add('preview')
+}
+
 ensureKatex()
 setupTheme()
 

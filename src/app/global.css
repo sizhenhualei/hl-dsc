@@ -43,6 +43,13 @@ body.change-theme *::after {
   transition: none !important;
 }
 
+html.preview *,
+html.preview *::before,
+html.preview *::after {
+  animation: none !important;
+  transition: none !important;
+}
+
 @media not all and (min-width: 768px) {
   html,
   body,

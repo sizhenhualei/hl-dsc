@@ -4,9 +4,9 @@
 
 # hl-dsc
 
-**像 DeepSeek App 一样简洁，但有自己的清爽设计语言**
+**安静、清爽的移动 AI 工作台**
 
-自定义 API · PDF / DOC / TXT / 图片 · 全屏语音与视频通话 · 无 App 端审查
+自定义 API · PDF / DOC / TXT / 图片 · 全屏语音与视频通话 · 客户端不做内容过滤
 
 [English](README.en.md) · [下载 Android APK](https://github.com/sizhenhualei/hl-dsc/releases/latest) · [问题反馈](https://github.com/sizhenhualei/hl-dsc/issues)
 
@@ -16,7 +16,7 @@
 
 ## 为什么是 hl-dsc
 
-hl-dsc 是一个移动端优先的轻量 AI 聊天客户端：以手机版 DeepSeek 的留白和克制为参考，但不是 DeepChat 的复刻。原创小团子 mascot、三张快捷卡片和独立全屏通话界面，构成自己的清爽设计语言。它把「模型接口」交还给你：填入任意 OpenAI 兼容地址即可聊天，也支持 DeepSeek 原生协议、OpenAI Responses 协议以及本地模型服务。
+hl-dsc 是一个移动端优先的轻量 AI 聊天客户端。首页采用 **Quiet Desk** 工作台布局：左对齐的问候、一条安静的能力条和最近对话，让文档、照片和语音一眼可达；它不是 DeepChat 的复刻，也不再照搬 DeepSeek 的居中问候。原创小团子图标、克制的蓝色强调色、细线分层和独立全屏通话界面，构成 hl-dsc 自己的清爽设计语言。它把「模型接口」交还给你：填入任意 OpenAI 兼容地址即可聊天，也支持 DeepSeek 原生协议、OpenAI Responses 协议以及本地模型服务。
 
 没有账号体系，没有 App 内置的内容审查，没有强制登录。聊天记录、附件和 API Key 都保存在你自己的设备上。
 

@@ -51,7 +51,14 @@ export const MobileHeader = ({ title }: { title?: string }) => {
         aria-label={t('expandSiderbarButton')}
         onClick={openMobileSider}
       />
-      <div className={styles.title}>{title ?? ''}</div>
+      {title ? (
+        <div className={styles.title}>{title}</div>
+      ) : (
+        <div className={styles.brand}>
+          <img className={styles.brandMark} src="./assets/icon.svg" alt="" />
+          <span className={styles.brandName}>hl-dsc</span>
+        </div>
+      )}
       <div className={styles.actions}>
         <AutoPlayVoiceButton size="xl" />
         <IconButton

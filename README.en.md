@@ -4,9 +4,9 @@
 
 # hl-dsc
 
-**A lightweight mobile AI chat client with a DeepSeek-like calm, in its own visual language**
+**A quiet, clean mobile AI workspace**
 
-Bring your own API · PDF / DOC / TXT / photos · Full-screen voice & video calls · No client-side censorship
+Bring your own API · PDF / DOC / TXT / photos · Full-screen voice & video calls · No client-side content filtering
 
 [中文](README.md) · [Download Android APK](https://github.com/sizhenhualei/hl-dsc/releases/latest) · [Issues](https://github.com/sizhenhualei/hl-dsc/issues)
 
@@ -16,7 +16,7 @@ Bring your own API · PDF / DOC / TXT / photos · Full-screen voice & video call
 
 ## Why hl-dsc
 
-hl-dsc is a mobile-first AI chat client. It takes the calm whitespace and restraint of the mobile DeepSeek app as a reference, but it is not a DeepChat clone: the original round mascot, three quick-action cards and a dedicated full-screen call surface give it a clean design language of its own. It gives the model endpoint back to you: any OpenAI-compatible API works, and DeepSeek native, OpenAI Responses, and local model servers are supported too.
+hl-dsc is a mobile-first AI chat client built around a **Quiet Desk** home: a left-aligned greeting, a quiet capability rail, and recent conversations put documents, photos and voice within one tap. It is not a DeepChat clone, and it no longer copies DeepSeek's centered greeting. An original round mascot, a restrained blue accent, hairline structure and a dedicated full-screen call surface give hl-dsc a clean design language of its own. It gives the model endpoint back to you: any OpenAI-compatible API works, and DeepSeek native, OpenAI Responses, and local model servers are supported too.
 
 There is no account system, no built-in content moderation, and no forced sign-in. Chats, attachments and API keys stay on your device.
 

@@ -22,16 +22,31 @@
   flex-shrink: 0;
 }
 
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-width: 0;
+}
+
+.brandMark {
+  display: block;
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 9px;
+}
+
 .appName {
   min-width: 0;
-  padding-left: 4px;
   overflow: hidden;
-  font-size: 20px;
+  font-size: 18px;
   line-height: 22px;
-  font-weight: 600;
+  font-weight: 680;
+  letter-spacing: -0.025em;
   white-space: nowrap;
   text-overflow: ellipsis;
-  color: #1d4ed8;
+  color: var(--hldsc-ink);
 }
 
 .newChat {

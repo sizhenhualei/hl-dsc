@@ -1,10 +1,14 @@
 import type { zh } from './zh.js'
 
 export const en = {
-  welcomeMessageChat250808: 'Hey, what shall we talk about?',
-  welcomeTagline: 'Your API. Your conversation.\nDocuments, photos and voice, all in one quiet place.',
+  welcomeMessageChat250808: 'What would you like to get done?',
+  welcomeTagline: 'Read a document, look at a photo, or just talk.\nYour API. Your conversation.',
+  homeWorkspaceLabel: 'Personal AI workspace',
+  homeRecentTitle: 'Recent chats',
+  homeRecentHint: 'Saved on device',
+  homeRecentEmpty: 'Start with a question, a document, or a photo.',
   starterDocument: 'Read a doc',
-  starterDocumentHint: 'PDF · DOCX · TXT',
+  starterDocumentHint: 'PDF · DOCX',
   starterDocumentPrompt: 'Please read this document and summarize the key points.',
   starterPhoto: 'See a photo',
   starterPhotoHint: 'Photos · screenshots',

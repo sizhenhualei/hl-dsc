@@ -213,7 +213,8 @@ export const App = () => {
     syncDailyTokenDate()
     // 首次打开引导配置自定义接口；不填 Key 也允许直接使用本机/内网端点
     promptInitialSetup()
-    if (!useSettings.getState().autoCheckUpdate) {
+    const previewMode = new URLSearchParams(window.location.search).has('preview')
+    if (!useSettings.getState().autoCheckUpdate || previewMode) {
       return
     }
     const timer = window.setTimeout(() => void checkForUpdates({ manual: false }), 2500)
